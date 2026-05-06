@@ -1,22 +1,237 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Soporte - Exams</title>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>VillaLabs - Mobile Apps by César Villa</title>
+
+  <meta name="description" content="VillaLabs is the personal app project of César Villa, focused on creating useful, simple and engaging mobile applications such as Exams and GameLab." />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111827, #2563eb);
+      color: white;
+      text-align: center;
+      padding: 90px 24px;
+    }
+
+    header h1 {
+      font-size: 54px;
+      margin: 0 0 14px;
+    }
+
+    header p {
+      font-size: 20px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 24px;
+    }
+
+    .section {
+      margin-bottom: 70px;
+    }
+
+    h2 {
+      color: #2563eb;
+      font-size: 32px;
+      margin-bottom: 18px;
+    }
+
+    .intro {
+      font-size: 18px;
+      max-width: 850px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.10);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 26px;
+      color: #111827;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+
+    .features {
+      background: white;
+      border-radius: 22px;
+      padding: 34px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    .contact {
+      text-align: center;
+      background: #111827;
+      color: white;
+      border-radius: 24px;
+      padding: 46px 24px;
+    }
+
+    .contact a {
+      color: #93c5fd;
+    }
+
+    footer {
+      text-align: center;
+      padding: 36px 24px;
+      background: #020617;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body style="font-family: Arial; padding: 40px;">
-  <h1>Soporte - Exams</h1>
 
-  <p>Si necesitas ayuda, contáctanos en:</p>
+<body>
 
-  <p><strong>📧 villalabs.app@gmail.com</strong></p>
+<header>
+  <h1>VillaLabs</h1>
+  <p>Independent mobile apps created by César Villa, focused on useful tools, simple experiences and accessible entertainment.</p>
+</header>
 
-  <h2>Legal</h2>
-  <ul>
-    <li><a href="https://cesarvm25.github.io/exams-legal/privacy-policy">Política de privacidad</a></li>
-    <li><a href="https://cesarvm25.github.io/exams-legal/terms-and-conditions">Términos y condiciones</a></li>
-  </ul>
+<main class="container">
 
-  <p>Gracias por usar Exams.</p>
+  <section class="section">
+    <h2>About VillaLabs</h2>
+    <p class="intro">
+      VillaLabs is the personal app project of César Villa. It is a space where I create, publish and improve mobile applications with a practical and polished approach.
+      The goal is to build apps that are easy to use, visually clear and useful in real situations, whether for studying, productivity or entertainment.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Apps</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <span class="tag">Education</span>
+        <h3>Exams</h3>
+        <p>
+          Exams is an AI-powered exam generator that helps users create practice exams from their own study material.
+          It is designed for students and self-learners who want to study more actively and prepare better.
+        </p>
+
+        <ul>
+          <li>Create exams from your own content</li>
+          <li>Generate questions with AI</li>
+          <li>Practice and review your results</li>
+          <li>Available on iOS and Android</li>
+        </ul>
+
+        <a class="btn" href="/exams/">View Exams</a>
+      </div>
+
+      <div class="card">
+        <span class="tag">Games</span>
+        <h3>GameLab</h3>
+        <p>
+          GameLab is a collection of fast mini games designed for solo play, couples, friends and groups.
+          It focuses on quick sessions, offline gameplay and simple mechanics that are easy to enjoy anywhere.
+        </p>
+
+        <ul>
+          <li>Mini games for 1 player</li>
+          <li>2-player games for couples and friends</li>
+          <li>Party mode for groups</li>
+          <li>New games added over time</li>
+        </ul>
+
+        <a class="btn" href="/gamelab/">View GameLab</a>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section features">
+    <h2>What I Focus On</h2>
+    <ul>
+      <li>Simple and clean user experiences</li>
+      <li>Mobile-first design</li>
+      <li>Useful features without unnecessary complexity</li>
+      <li>Continuous improvement after launch</li>
+      <li>Apps that can be used by a wide audience</li>
+    </ul>
+  </section>
+
+  <section class="section contact">
+    <h2>Contact</h2>
+    <p>
+      For support, questions or app-related requests, you can contact me at:
+    </p>
+    <p>
+      <strong><a href="mailto:villalabs.app@gmail.com">villalabs.app@gmail.com</a></strong>
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 VillaLabs. Created by César Villa.</p>
+</footer>
+
 </body>
 </html>
