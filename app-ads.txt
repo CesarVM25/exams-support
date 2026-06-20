@@ -1,1 +1,9 @@
+# Appodeal
+appodeal.com, 264824, DIRECT
+
+# BidMachine
+bidmachine.io, 1, DIRECT
+bidmachine.io, 466, DIRECT
+
+# AdMob
 google.com, pub-5260916760963831, DIRECT, f08c47fec0942fa0
