@@ -1,0 +1,967 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Rudis - Arena Battle Game</title>
+
+  <meta
+    name="description"
+    content="Enter the arena in Rudis, an asynchronous gladiator battle game. Build your fighter, collect equipment, improve your stats and fight for glory."
+  />
+
+  <style>
+    :root {
+      --bg: #17120e;
+      --bg-dark: #0d0907;
+      --panel: #241b14;
+      --panel-light: #302219;
+
+      --sand: #d6b070;
+      --sand-light: #f1d49b;
+      --bronze: #b9783f;
+      --bronze-light: #d79b5b;
+
+      --red: #7f251f;
+      --red-light: #b93b30;
+
+      --stone: #c8b99d;
+      --text: #f5ead6;
+      --muted: #c3b49d;
+
+      --border: rgba(214, 176, 112, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at top, rgba(127, 37, 31, 0.15), transparent 35%),
+        linear-gradient(180deg, #17120e 0%, #0d0907 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    header {
+      position: relative;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 20px;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          rgba(14, 9, 6, 0.45),
+          rgba(14, 9, 6, 0.92)
+        ),
+        radial-gradient(
+          circle at center,
+          rgba(185, 120, 63, 0.25),
+          transparent 55%
+        ),
+        linear-gradient(
+          135deg,
+          #6f211c 0%,
+          #3b2114 45%,
+          #17100b 100%
+        );
+
+      border-bottom: 4px solid var(--bronze);
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.12;
+
+      background-image:
+        linear-gradient(
+          45deg,
+          rgba(255,255,255,0.08) 25%,
+          transparent 25%,
+          transparent 75%,
+          rgba(255,255,255,0.08) 75%
+        );
+
+      background-size: 8px 8px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 850px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 7px 16px;
+
+      border: 1px solid rgba(214,176,112,0.5);
+      border-radius: 30px;
+
+      color: var(--sand-light);
+      background: rgba(20, 13, 9, 0.5);
+
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    header h1 {
+      margin: 0 0 12px;
+
+      color: var(--sand-light);
+      font-size: clamp(60px, 10vw, 105px);
+      line-height: 0.95;
+      letter-spacing: 4px;
+
+      text-shadow:
+        4px 4px 0 #4b2015,
+        8px 8px 0 rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+      margin: 0 auto 15px;
+      color: var(--bronze-light);
+
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    header p {
+      max-width: 720px;
+      margin: auto;
+
+      color: #f2e5cf;
+      font-family: Arial, sans-serif;
+      font-size: 19px;
+    }
+
+    .hero-buttons {
+      margin-top: 35px;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* =========================
+       COMMON
+    ========================= */
+
+    .section {
+      margin: 80px 0;
+    }
+
+    .section-title {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .section-title h2,
+    h2 {
+      margin: 0 0 12px;
+
+      color: var(--sand);
+      font-size: 34px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .section-title p {
+      max-width: 720px;
+      margin: auto;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+    }
+
+    .divider {
+      width: 90px;
+      height: 3px;
+      margin: 14px auto 0;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--bronze),
+        transparent
+      );
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      position: relative;
+      padding: 28px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(48,34,25,0.96),
+          rgba(31,22,16,0.96)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      box-shadow:
+        0 14px 35px rgba(0,0,0,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.03);
+
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(214,176,112,0.55);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+
+      top: 0;
+      left: 20px;
+      right: 20px;
+      height: 2px;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--bronze),
+        transparent
+      );
+
+      opacity: 0.7;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+
+      color: var(--sand-light);
+      font-size: 22px;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+    }
+
+    .highlight {
+      border: 1px solid rgba(185, 59, 48, 0.75);
+
+      box-shadow:
+        0 14px 35px rgba(0,0,0,0.3),
+        0 0 25px rgba(127,37,31,0.18);
+    }
+
+    .number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 42px;
+      height: 42px;
+      margin-bottom: 14px;
+
+      background: var(--red);
+      border: 2px solid var(--bronze);
+      border-radius: 50%;
+
+      color: white;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+
+    /* =========================
+       STORY SECTION
+    ========================= */
+
+    .story {
+      padding: 45px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(116,75,42,0.12),
+          rgba(127,37,31,0.08)
+        );
+
+      border-left: 4px solid var(--bronze);
+      border-right: 4px solid var(--bronze);
+    }
+
+    .story p {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+
+      color: #e7d7bd;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    /* =========================
+       FEATURES
+    ========================= */
+
+    .feature-list {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 0;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px 25px;
+
+      list-style: none;
+    }
+
+    .feature-list li {
+      position: relative;
+
+      padding: 15px 18px 15px 46px;
+
+      background: rgba(48, 34, 25, 0.65);
+      border: 1px solid rgba(214,176,112,0.12);
+      border-radius: 8px;
+
+      color: #e7d7bd;
+      font-family: Arial, sans-serif;
+    }
+
+    .feature-list li::before {
+      content: "⚔";
+      position: absolute;
+      left: 16px;
+      top: 12px;
+
+      color: var(--bronze-light);
+      font-size: 19px;
+    }
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      position: relative;
+      overflow: hidden;
+
+      text-align: center;
+      padding: 60px 25px;
+
+      background:
+        linear-gradient(
+          rgba(39, 20, 14, 0.85),
+          rgba(22, 13, 9, 0.95)
+        ),
+        linear-gradient(
+          135deg,
+          #6f211c,
+          #2e1a12
+        );
+
+      border: 1px solid rgba(214,176,112,0.35);
+      border-radius: 14px;
+    }
+
+    .cta h2 {
+      font-size: 40px;
+      color: var(--sand-light);
+    }
+
+    .cta p {
+      color: #e9d8bb;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+
+      margin-top: 20px;
+      padding: 14px 30px;
+
+      background:
+        linear-gradient(
+          180deg,
+          var(--bronze-light),
+          var(--bronze)
+        );
+
+      border: 2px solid #e8c184;
+      border-radius: 6px;
+
+      color: #21130c;
+      text-decoration: none;
+
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      box-shadow:
+        0 5px 0 #6d3d20,
+        0 10px 20px rgba(0,0,0,0.25);
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 7px 0 #6d3d20,
+        0 12px 24px rgba(0,0,0,0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(20, 13, 9, 0.65);
+      color: var(--sand-light);
+      border-color: rgba(214,176,112,0.6);
+
+      box-shadow:
+        0 5px 0 #150c08,
+        0 10px 20px rgba(0,0,0,0.25);
+    }
+
+    /* =========================
+       LEGAL
+    ========================= */
+
+    .legal {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+    }
+
+    .legal a {
+      margin: 0 6px;
+    }
+
+    a {
+      color: var(--sand);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--sand-light);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 35px 20px;
+      text-align: center;
+
+      background: #080503;
+      border-top: 1px solid rgba(214,176,112,0.14);
+
+      color: #8f8170;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+      header {
+        min-height: 520px;
+        padding: 60px 20px;
+      }
+
+      header p {
+        font-size: 17px;
+      }
+
+      .container {
+        padding: 25px 18px;
+      }
+
+      .section {
+        margin: 60px 0;
+      }
+
+      h2,
+      .section-title h2 {
+        font-size: 28px;
+      }
+
+      .story {
+        padding: 30px 20px;
+      }
+
+      .cta {
+        padding: 45px 20px;
+      }
+
+      .cta h2 {
+        font-size: 31px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header>
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      Enter the Arena
+    </div>
+
+    <h1>RUDIS</h1>
+
+    <div class="hero-subtitle">
+      Arena Battle Game
+    </div>
+
+    <p>
+      Build your gladiator, master your equipment and enter the arena.
+      Fight asynchronous battles, improve your warrior and climb your way
+      from an unknown fighter to a legend of the arena.
+    </p>
+
+    <div class="hero-buttons">
+      <a class="btn" href="#game">
+        Discover Rudis
+      </a>
+
+      <a class="btn btn-secondary" href="#features">
+        Game Features
+      </a>
+    </div>
+
+  </div>
+</header>
+
+
+<main class="container">
+
+  <!-- =========================
+       ABOUT
+  ========================= -->
+
+  <section class="section" id="game">
+
+    <div class="section-title">
+      <h2>Fight for Glory</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="story">
+      <p>
+        In Rudis, every fighter begins with little more than ambition.
+        Train your gladiator, improve your attributes, collect new weapons
+        and armor, and prepare for battle against fighters from across the arena.
+        Every victory brings new rewards, experience and another step toward glory.
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CORE LOOP
+  ========================= -->
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Your Path Through the Arena</h2>
+      <p>
+        Build, equip, fight and grow stronger after every battle.
+      </p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="number">1</div>
+        <h3>Build Your Fighter</h3>
+        <p>
+          Create your gladiator and develop the attributes that define
+          your fighting style, including strength, dexterity, health and defense.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">2</div>
+        <h3>Equip for Battle</h3>
+        <p>
+          Collect swords, daggers, axes, spears, shields, helmets and armor.
+          Choose the right equipment before entering the arena.
+        </p>
+      </div>
+
+      <div class="card highlight">
+        <div class="number">3</div>
+        <h3>Enter the Arena</h3>
+        <p>
+          Face other fighters in asynchronous battles.
+          Your build, equipment and combat attributes determine how your warrior performs.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="number">4</div>
+        <h3>Claim Your Rewards</h3>
+        <p>
+          Earn experience, coins and equipment.
+          Improve your gladiator and prepare for stronger opponents.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       BATTLES
+  ========================= -->
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Asynchronous Arena Battles</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>No Waiting for Opponents</h3>
+        <p>
+          Battles are asynchronous, so you can enter the arena without
+          waiting for another player to be online at the same moment.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Watch Every Fight</h3>
+        <p>
+          Experience your battles through animated arena replays and see
+          how your fighter's equipment and attributes perform in combat.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Different Fighting Styles</h3>
+        <p>
+          Weapons behave differently in battle.
+          Range, attack speed, damage and defensive equipment all influence the fight.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       EQUIPMENT
+  ========================= -->
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Weapons & Equipment</h2>
+      <p>
+        Every piece of gear can change the way your gladiator performs.
+      </p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Swords & Daggers</h3>
+        <p>
+          Balanced weapons for gladiators who value reliable attacks,
+          mobility and speed.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Axes & Heavy Weapons</h3>
+        <p>
+          Powerful equipment designed to deliver devastating hits
+          at the cost of slower attacks.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Spears</h3>
+        <p>
+          Fight from greater range and force opponents to close the distance
+          before they can strike.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Shields & Armor</h3>
+        <p>
+          Strengthen your defenses with shields, helmets and armor
+          and survive longer against powerful opponents.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PROGRESSION
+  ========================= -->
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>Become Stronger</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="story">
+      <p>
+        Victory is only the beginning. Gain experience, level up and decide
+        how your gladiator grows. Improve your combat attributes, unlock better
+        equipment and create a fighter capable of surviving increasingly
+        dangerous battles.
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FEATURES
+  ========================= -->
+
+  <section class="section" id="features">
+
+    <div class="section-title">
+      <h2>Game Features</h2>
+      <div class="divider"></div>
+    </div>
+
+    <ul class="feature-list">
+
+      <li>
+        Asynchronous PvP arena battles
+      </li>
+
+      <li>
+        Animated battle replays
+      </li>
+
+      <li>
+        Character progression and leveling
+      </li>
+
+      <li>
+        Strength, dexterity, health and defense attributes
+      </li>
+
+      <li>
+        Multiple weapon classes
+      </li>
+
+      <li>
+        Swords, daggers, axes, spears and heavy weapons
+      </li>
+
+      <li>
+        Shields, helmets and armor
+      </li>
+
+      <li>
+        Equipment and reward progression
+      </li>
+
+      <li>
+        Different gladiator races and appearances
+      </li>
+
+      <li>
+        Rewards after battles
+      </li>
+
+      <li>
+        Strategic equipment combinations
+      </li>
+
+      <li>
+        Pixel-art inspired gladiator world
+      </li>
+
+    </ul>
+
+  </section>
+
+
+  <!-- =========================
+       STYLE
+  ========================= -->
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>A World Built Around the Arena</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <h3>Gladiator Atmosphere</h3>
+        <p>
+          Arenas, training grounds, equipment chambers and reward rooms
+          create a world inspired by ancient gladiatorial combat.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Pixel-Art Sketcher Style</h3>
+        <p>
+          Rudis combines pixel-art inspired characters with a hand-drawn,
+          sketch-like visual style designed specifically for the game.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Your Own Gladiator</h3>
+        <p>
+          Your fighter evolves visually and statistically as you collect
+          equipment and progress through the game.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CTA
+  ========================= -->
+
+  <section class="cta">
+
+    <h2>Will You Survive the Arena?</h2>
+
+    <p>
+      Build your gladiator. Choose your weapons. Fight for glory.
+    </p>
+
+    <p>
+      <strong>Rudis is coming to iOS and Android.</strong>
+    </p>
+
+    <a class="btn" href="#">
+      Enter the Arena
+    </a>
+
+  </section>
+
+
+  <!-- =========================
+       LEGAL
+  ========================= -->
+
+  <section class="section legal">
+
+    <p>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      |
+      <a href="terms.html">Terms & Conditions</a>
+      |
+      <a href="support.html">Support</a>
+      |
+      <a href="delete-account.html">Delete Account</a>
+    </p>
+
+    <p>
+      Contact:
+      <a href="mailto:villalabs.app@gmail.com">
+        villalabs.app@gmail.com
+      </a>
+    </p>
+
+  </section>
+
+</main>
+
+
+<footer>
+
+  <p>
+    © 2026 VillaLabs
+  </p>
+
+  <p>
+    Rudis: Arena Battle Game
+  </p>
+
+</footer>
+
+</body>
+</html>
+```
