@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Rudis Support - VillaLabs</title>
+
+  <meta
+    name="description"
+    content="Official support page for Rudis: Battle Arena. Get help with your account, battles, rewards, advertisements and other game issues."
+  />
+
+  <style>
+    :root {
+      --bg: #17120e;
+      --bg-dark: #0d0907;
+      --panel: #241b14;
+      --panel-light: #302219;
+
+      --sand: #d6b070;
+      --sand-light: #f1d49b;
+      --bronze: #b9783f;
+      --bronze-light: #d79b5b;
+
+      --red: #7f251f;
+      --red-light: #b93b30;
+
+      --text: #f5ead6;
+      --muted: #c3b49d;
+
+      --border: rgba(214, 176, 112, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at top, rgba(127, 37, 31, 0.15), transparent 35%),
+        linear-gradient(180deg, #17120e 0%, #0d0907 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    header {
+      position: relative;
+      min-height: 390px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+      padding: 70px 20px;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          rgba(14, 9, 6, 0.45),
+          rgba(14, 9, 6, 0.92)
+        ),
+        radial-gradient(
+          circle at center,
+          rgba(185, 120, 63, 0.25),
+          transparent 55%
+        ),
+        linear-gradient(
+          135deg,
+          #6f211c 0%,
+          #3b2114 45%,
+          #17100b 100%
+        );
+
+      border-bottom: 4px solid var(--bronze);
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.12;
+
+      background-image:
+        linear-gradient(
+          45deg,
+          rgba(255,255,255,0.08) 25%,
+          transparent 25%,
+          transparent 75%,
+          rgba(255,255,255,0.08) 75%
+        );
+
+      background-size: 8px 8px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 7px 16px;
+
+      border: 1px solid rgba(214,176,112,0.5);
+      border-radius: 30px;
+
+      color: var(--sand-light);
+      background: rgba(20, 13, 9, 0.5);
+
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+
+      color: var(--sand-light);
+      font-size: clamp(48px, 8vw, 78px);
+      line-height: 1;
+      letter-spacing: 3px;
+
+      text-shadow:
+        4px 4px 0 #4b2015,
+        8px 8px 0 rgba(0,0,0,0.3);
+    }
+
+    .hero-subtitle {
+      margin: 0 0 14px;
+
+      color: var(--bronze-light);
+      font-size: clamp(19px, 3vw, 27px);
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    header p {
+      max-width: 680px;
+      margin: auto;
+
+      color: #f2e5cf;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    /* =========================
+       COMMON
+    ========================= */
+
+    .section {
+      margin: 65px 0;
+    }
+
+    .section-title {
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .section-title h2,
+    h2 {
+      margin: 0 0 12px;
+
+      color: var(--sand);
+      font-size: 32px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .section-title p {
+      max-width: 700px;
+      margin: auto;
+
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+    }
+
+    .divider {
+      width: 90px;
+      height: 3px;
+      margin: 14px auto 0;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--bronze),
+        transparent
+      );
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      position: relative;
+      padding: 28px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(48,34,25,0.96),
+          rgba(31,22,16,0.96)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      box-shadow:
+        0 14px 35px rgba(0,0,0,0.22),
+        inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+
+      top: 0;
+      left: 20px;
+      right: 20px;
+      height: 2px;
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--bronze),
+        transparent
+      );
+
+      opacity: 0.7;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+
+      color: var(--sand-light);
+      font-size: 21px;
+    }
+
+    .card p {
+      margin-bottom: 0;
+
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+    }
+
+    .card a {
+      color: var(--sand-light);
+    }
+
+    /* =========================
+       CONTACT
+    ========================= */
+
+    .contact {
+      position: relative;
+      overflow: hidden;
+
+      padding: 45px 30px;
+      text-align: center;
+
+      background:
+        linear-gradient(
+          rgba(39, 20, 14, 0.85),
+          rgba(22, 13, 9, 0.95)
+        ),
+        linear-gradient(
+          135deg,
+          #6f211c,
+          #2e1a12
+        );
+
+      border: 1px solid rgba(214,176,112,0.35);
+      border-radius: 14px;
+    }
+
+    .contact h2 {
+      color: var(--sand-light);
+    }
+
+    .contact p {
+      max-width: 650px;
+      margin: 0 auto 10px;
+
+      color: #e9d8bb;
+      font-family: Arial, sans-serif;
+      font-size: 17px;
+    }
+
+    .btn {
+      display: inline-block;
+
+      margin-top: 22px;
+      padding: 14px 30px;
+
+      background:
+        linear-gradient(
+          180deg,
+          var(--bronze-light),
+          var(--bronze)
+        );
+
+      border: 2px solid #e8c184;
+      border-radius: 6px;
+
+      color: #21130c;
+      text-decoration: none;
+
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      box-shadow:
+        0 5px 0 #6d3d20,
+        0 10px 20px rgba(0,0,0,0.25);
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 7px 0 #6d3d20,
+        0 12px 24px rgba(0,0,0,0.3);
+    }
+
+    /* =========================
+       LEGAL
+    ========================= */
+
+    .legal {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+    }
+
+    .legal a {
+      margin: 0 6px;
+    }
+
+    a {
+      color: var(--sand);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--sand-light);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 35px 20px;
+      text-align: center;
+
+      background: #080503;
+      border-top: 1px solid rgba(214,176,112,0.14);
+
+      color: #8f8170;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+      header {
+        min-height: 350px;
+        padding: 55px 20px;
+      }
+
+      header p {
+        font-size: 16px;
+      }
+
+      .container {
+        padding: 25px 18px;
+      }
+
+      .section {
+        margin: 50px 0;
+      }
+
+      h2,
+      .section-title h2 {
+        font-size: 27px;
+      }
+
+      .contact {
+        padding: 38px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <header>
+    <div class="hero-content">
+
+      <div class="hero-badge">
+        VillaLabs Support
+      </div>
+
+      <h1>RUDIS</h1>
+
+      <div class="hero-subtitle">
+        Player Support
+      </div>
+
+      <p>
+        Need help in the arena? Find answers to common questions
+        or contact us directly for support with Rudis: Battle Arena.
+      </p>
+
+    </div>
+  </header>
+
+
+  <main class="container">
+
+    <!-- =========================
+         SUPPORT
+    ========================= -->
+
+    <section class="section">
+
+      <div class="section-title">
+        <h2>How Can We Help?</h2>
+        <p>
+          Find information about common issues below.
+          If you still need assistance, contact VillaLabs directly.
+        </p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <h3>Account & Sign-In</h3>
+          <p>
+            If you are having trouble signing in, make sure you are
+            using the same sign-in method associated with your Rudis account.
+            If the problem continues, contact us and describe the issue.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Battles & Progress</h3>
+          <p>
+            If a battle, reward, achievement or progression update does not
+            appear correctly, restart the game and check your internet connection.
+            Contact us if the issue persists.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Rewards & Equipment</h3>
+          <p>
+            If you believe a reward, item or equipment upgrade was not correctly
+            added to your account, contact support with as much information
+            about the affected battle or reward as possible.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Advertisements</h3>
+          <p>
+            Rudis may offer optional rewarded advertisements.
+            If an advertisement does not load or a reward is not granted
+            after completion, please contact us with details about the issue.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Technical Issues</h3>
+          <p>
+            If Rudis crashes, freezes or behaves unexpectedly, try closing
+            and reopening the app. When contacting us, include your device
+            model and operating system version whenever possible.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Delete Your Account</h3>
+          <p>
+            If you want to permanently delete your Rudis account and
+            associated account data, visit our
+            <a href="delete-account.html">account deletion page</a>.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT
+    ========================= -->
+
+    <section class="section">
+
+      <div class="contact">
+
+        <h2>Contact Support</h2>
+
+        <p>
+          Can't find the answer you need?
+        </p>
+
+        <p>
+          Contact VillaLabs and tell us what happened.
+          Please include your Rudis account email when relevant and
+          any details that may help us investigate the issue.
+        </p>
+
+        <a
+          class="btn"
+          href="mailto:villalabs.app@gmail.com?subject=Rudis%20Support"
+        >
+          Contact Support
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         LEGAL
+    ========================= -->
+
+    <section class="section legal">
+
+      <p>
+        <a href="./">Rudis</a>
+        |
+        <a href="privacy.html">Privacy Policy</a>
+        |
+        <a href="terms.html">Terms & Conditions</a>
+        |
+        <a href="delete-account.html">Delete Account</a>
+      </p>
+
+      <p>
+        Contact:
+        <a href="mailto:villalabs.app@gmail.com">
+          villalabs.app@gmail.com
+        </a>
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <p>
+      © 2026 VillaLabs
+    </p>
+
+    <p>
+      Rudis: Battle Arena
+    </p>
+
+  </footer>
+
+</body>
+</html>
